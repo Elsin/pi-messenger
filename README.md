@@ -92,6 +92,8 @@ Chat input supports `@Name msg` for DMs and `@all msg` for broadcasts. Text with
 
 Crew turns a PRD into a dependency graph of tasks, then executes them in parallel waves.
 
+Crew logs are per project, under that project's working directory: `.pi/messenger/crew/`. For example, if you run Crew from `/path/to/my-app`, the planner log lives at `/path/to/my-app/.pi/messenger/crew/planning-progress.md`.
+
 ### Workflow
 
 1. **Plan** — Planner explores the codebase and PRD, drafts tasks with dependencies. A reviewer checks the plan; the planner refines until SHIP or `maxPasses` is reached. History is stored in `planning-progress.md`.
@@ -332,7 +334,7 @@ Incoming messages wake the receiving agent via `pi.sendMessage()` with `triggerT
 
 Crew workers are spawned as `pi --mode json` subprocesses with the agent's system prompt, model, and tool restrictions from their `.md` definitions. Progress is tracked via JSONL streaming — the overlay subscribes to a live progress store that shows each worker's current tool, call count, and token usage in real time. Aborting a work run triggers graceful shutdown: each worker receives an inbox message asking it to stop, followed by a grace period before SIGTERM. The planner and reviewer work the same way — just pi instances with different agent configs.
 
-All coordination is file-based, no daemon required. Shared state (registry, inboxes, swarm claims/completions) lives in `~/.pi/agent/messenger/`. Activity feed and crew data are project-scoped under `.pi/messenger/` inside your project. Dead agents are detected via PID checks and cleaned up automatically.
+All coordination is file-based, no daemon required. Shared state (registry, inboxes, swarm claims/completions) lives in `~/.pi/agent/messenger/`. Activity feed and crew data are project-scoped under `.pi/messenger/` inside your project, so Crew logs live at `<project>/.pi/messenger/crew/` and the shared activity feed lives at `<project>/.pi/messenger/feed.jsonl`. Dead agents are detected via PID checks and cleaned up automatically.
 
 ## Credits
 
