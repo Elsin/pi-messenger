@@ -392,6 +392,8 @@ Usage (action-based API - preferred):
   
   // Crew: Review
   pi_messenger({ action: "review", target: "task-1" })          → Review impl`,
+    promptSnippet:
+      "Use for multi-agent coordination and Crew workflows: join/status/feed, create plans, run work waves, manage tasks, reserve files, and message agents.",
     parameters: Type.Object({
       action: Type.Optional(Type.String({
         description: "Action to perform (e.g., 'join', 'plan', 'work', 'task.start')"

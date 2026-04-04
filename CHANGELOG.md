@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.14.1] - 2026-04-04
+
+### Changed
+- Added a `promptSnippet` for `pi_messenger` so Pi 0.59+ includes it in the default tool prompt section and reliably surfaces Crew/coordination workflows.
+
 ## [0.14.0] - 2026-04-03
 
 ### Added
